@@ -9,7 +9,7 @@ It has STM32 microcontroller on board and this project provides software for it 
 In order to make it:
 
 1. Download KiCAD 6, STM32CubeIDE, clone/download this project
-2. Generate Gerber files according to your manufarcturer rules (for example [JLCPCB](https://support.jlcpcb.com/article/194-how-to-generate-gerber-and-drill-files-in-kicad-6)
+2. Generate Gerber files according to your manufarcturer rules (for example [JLCPCB](https://support.jlcpcb.com/article/194-how-to-generate-gerber-and-drill-files-in-kicad-6))
 3. Order the PCB
 4. Order the parts (Kicad project contains links to all parts on lcsc)
 5. Solder everything
