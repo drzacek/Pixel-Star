@@ -24,3 +24,17 @@ fp-info-cache
 # Exported BOM files
 *.xml
 *.csv
+
+# Gerber output dir
+*/[G/g]erber*/
+
+# Kicad backups
+*/*-backups/
+*/symbols_footprints/
+
+## FIRMWARE section
+# Object files (compiled)
+*.o
+*/[Dd]ebug/
+*/[Rr]elease/
+*/bin/
