@@ -2,6 +2,11 @@
 PCB star with RGB LEDs, xmas decoration
 
 
+!! Warning !!
+This is still a work in progress - I am still waiting for my first PCBs to arrive from JLCPCB.
+Once I have them done I will update this repo with pictures and firmware source code.
+
+
 With this project you can make a simple yet nice star-shaped PCB with a bunch of addressable LEDs.
 
 It has STM32 microcontroller on board and this project provides software for it to drive the LEDs.
