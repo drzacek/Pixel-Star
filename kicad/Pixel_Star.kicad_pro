@@ -384,7 +384,7 @@
       "idf": "",
       "netlist": "",
       "specctra_dsn": "",
-      "step": "",
+      "step": "../../Pixel_Star.step",
       "vrml": ""
     },
     "page_layout_descr_file": ""
