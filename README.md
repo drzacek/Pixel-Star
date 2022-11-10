@@ -4,14 +4,12 @@ PCB star with RGB LEDs, xmas decoration
 ![alt text](https://github.com/drzacek/Pixel-Star/blob/master/render_01.png "Kicad PCB 3D-render")
 
 
-!! Warning !!
-This is still a work in progress - I am still waiting for my first PCBs to arrive from JLCPCB.
-Once I have them done I will update this repo with pictures and firmware source code.
-
 
 With this project you can make a simple yet nice star-shaped PCB with a bunch of addressable LEDs.
 
 It has STM32 microcontroller on board and this project provides software for it to drive the LEDs.
+<br/><br/><br/>
+
 
 In order to make it:
 
@@ -24,6 +22,17 @@ In order to make it:
 7. Flash the firmware using ST-Link
 
 
+A cable with 4-pin molex picoblade connector is needed to flash the board. 
+[Like this one here](https://www.ebay.de/itm/174533296900)
+<br/><br/><br/>
+
+
+A quick test of the board:
+
+[![Pixel-Star on Youtube](https://img.youtube.com/vi/iGwG598rLek/0.jpg)](https://www.youtube.com/watch?v=iGwG598rLek)
+
+
+<br/><br/><br/>
 
 ### Bill of Materials
 
