@@ -842,7 +842,7 @@ void HAL_DMA_IRQHandler(DMA_HandleTypeDef *hdma)
       }
       /* Clear the transfer complete flag */
       __HAL_DMA_CLEAR_FLAG(hdma, (DMA_FLAG_TC1 << (hdma->ChannelIndex & 0x1CU)));
-
+      DMA1->IFCR = 0x0FFFFFFF;
       /* Process Unlocked */
       __HAL_UNLOCK(hdma);
 

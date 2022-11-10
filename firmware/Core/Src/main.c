@@ -18,13 +18,14 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "dma.h"
 #include "spi.h"
 #include "tim.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "leds.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -86,16 +87,78 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_DMA_Init();
   MX_SPI1_Init();
-  MX_TIM14_Init();
+  MX_TIM17_Init();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  uint32_t counter = 0;
+  uint32_t nTick = 0;
+  uint8_t grbColor[3];
+
+  uint8_t grbGRN[3] = {255, 0, 0};
+  uint8_t grbRED[3] = {0, 255, 0};
+  uint8_t grbBLU[3] = {0, 0, 255};
+
+
+  ws2813_init(hspi1);
+
   while (1)
   {
+	  HAL_Delay(700);
+	  nTick = HAL_GetTick();
+	  HAL_GPIO_WritePin(BLU_LED1_GPIO_Port, BLU_LED1_Pin, !((counter +1) % 5));
+	  HAL_GPIO_WritePin(BLU_LED2_GPIO_Port, BLU_LED2_Pin, !((counter +2) % 5));
+	  HAL_GPIO_WritePin(BLU_LED3_GPIO_Port, BLU_LED3_Pin, !((counter +3) % 5));
+	  HAL_GPIO_WritePin(BLU_LED4_GPIO_Port, BLU_LED4_Pin, !((counter +4) % 5));
+	  HAL_GPIO_WritePin(BLU_LED5_GPIO_Port, BLU_LED5_Pin, !((counter +5) % 5));
+	  counter++;
+
+	  if (counter >= 5)
+		  counter = 0;
+
+	  // WS2813 test
+	  ws2813_clearAllLed();	// Set all LEDs to 0
+
+
+	  switch(counter)
+	  {
+	  case 0:
+		  ws2813_setLedRGB(grbGRN, 0);
+		  break;
+	  case 1:
+		  // Middle LED only
+		  ws2813_setLedRGB(grbRED, 0);
+		  break;
+
+	  case 2:
+	  case 4:
+	  default:
+		  ws2813_setLedRGB(grbRED, 1);
+		  ws2813_setLedRGB(grbRED, 3);
+		  ws2813_setLedRGB(grbRED, 5);
+		  ws2813_setLedRGB(grbRED, 7);
+		  ws2813_setLedRGB(grbRED, 9);
+		  break;
+
+	  case 3:
+		  ws2813_setLedRGB(grbBLU, 2);
+		  ws2813_setLedRGB(grbBLU, 4);
+		  ws2813_setLedRGB(grbBLU, 6);
+		  ws2813_setLedRGB(grbBLU, 8);
+		  ws2813_setLedRGB(grbBLU, 10);
+		  break;
+	  }
+
+
+	  ws2813_sendLEDs();
+
+
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
