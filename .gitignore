@@ -32,6 +32,9 @@ fp-info-cache
 */*-backups/
 */symbols_footprints/
 
+# Local settings
+*.kicad_prl
+
 ## FIRMWARE section
 # Object files (compiled)
 *.o

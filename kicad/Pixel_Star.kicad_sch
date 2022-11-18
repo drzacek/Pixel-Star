@@ -8,7 +8,7 @@
     (title "Pixel Star")
     (date "2022-10-20")
     (rev "0")
-    (comment 1 "Author: Jacek Mainczyk")
+    (comment 1 "Author: drzacek")
     (comment 2 "Small star-shaped neopixel LED decoration")
   )
 

@@ -96,61 +96,73 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  uint32_t counter = 0;
-  uint32_t nTick = 0;
-  uint8_t grbColor[3];
-
-  uint8_t grbGRN[3] = {255, 0, 0};
-  uint8_t grbRED[3] = {0, 255, 0};
-  uint8_t grbBLU[3] = {0, 0, 255};
-
 
   ws2813_init(hspi1);
 
+  int8_t effectNumber = 0;				// used to switch between different effects (animations)
+  uint32_t lastButton1PressTick = 0;	// last button press occured at X - used to filter out bouncing
+  uint32_t lastButton2PressTick = 0;	// last button press occured at X - used to filter out bouncing
+
+
   while (1)
   {
-	  HAL_Delay(700);
-	  nTick = HAL_GetTick();
-	  HAL_GPIO_WritePin(BLU_LED1_GPIO_Port, BLU_LED1_Pin, !((counter +1) % 5));
-	  HAL_GPIO_WritePin(BLU_LED2_GPIO_Port, BLU_LED2_Pin, !((counter +2) % 5));
-	  HAL_GPIO_WritePin(BLU_LED3_GPIO_Port, BLU_LED3_Pin, !((counter +3) % 5));
-	  HAL_GPIO_WritePin(BLU_LED4_GPIO_Port, BLU_LED4_Pin, !((counter +4) % 5));
-	  HAL_GPIO_WritePin(BLU_LED5_GPIO_Port, BLU_LED5_Pin, !((counter +5) % 5));
-	  counter++;
+	  HAL_Delay(1000/50);
 
-	  if (counter >= 5)
-		  counter = 0;
+	  // Handle buttons and effect changes
+	  if (!HAL_GPIO_ReadPin(BUTTON1_GPIO_Port, BUTTON1_Pin))
+	  {
+		  if ((uint32_t)((HAL_GetTick() - lastButton1PressTick)) > 200)
+		  {
+			  lastButton1PressTick = HAL_GetTick();
+
+			  effectNumber++;
+		  }
+	  }
+
+	  if (!HAL_GPIO_ReadPin(BUTTON2_GPIO_Port, BUTTON2_Pin))
+	  {
+		  if ((uint32_t)((HAL_GetTick() - lastButton2PressTick)) > 200)
+		  {
+			  lastButton2PressTick = HAL_GetTick();
+
+			  effectNumber--;
+		  }
+	  }
+
+	  if (effectNumber > 4)
+	  {
+		  effectNumber = 0;
+	  }
+
+	  if (effectNumber < 0)
+	  {
+		  effectNumber = 4;
+	  }
 
 	  // WS2813 test
 	  ws2813_clearAllLed();	// Set all LEDs to 0
 
-
-	  switch(counter)
+	  switch(effectNumber)
 	  {
-	  case 0:
-		  ws2813_setLedRGB(grbGRN, 0);
-		  break;
-	  case 1:
-		  // Middle LED only
-		  ws2813_setLedRGB(grbRED, 0);
-		  break;
-
-	  case 2:
 	  case 4:
-	  default:
-		  ws2813_setLedRGB(grbRED, 1);
-		  ws2813_setLedRGB(grbRED, 3);
-		  ws2813_setLedRGB(grbRED, 5);
-		  ws2813_setLedRGB(grbRED, 7);
-		  ws2813_setLedRGB(grbRED, 9);
+		  led_effect_4();
 		  break;
 
 	  case 3:
-		  ws2813_setLedRGB(grbBLU, 2);
-		  ws2813_setLedRGB(grbBLU, 4);
-		  ws2813_setLedRGB(grbBLU, 6);
-		  ws2813_setLedRGB(grbBLU, 8);
-		  ws2813_setLedRGB(grbBLU, 10);
+		  led_effect_3();
+		  break;
+
+	  case 2:
+		  led_effect_2();
+		  break;
+
+	  case 1:
+		  led_effect_1();
+		  break;
+
+	  case 0:
+	  default:
+		  led_effect_0();
 		  break;
 	  }
 
